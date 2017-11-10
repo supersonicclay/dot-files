@@ -1,5 +1,4 @@
-# My .bashrc and associated files
-
+# My dot files and terminal setup
 
 Git:
 
