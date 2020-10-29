@@ -4,6 +4,8 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/claya/.oh-my-zsh
 
+export TERM="xterm-256color"
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -23,15 +25,19 @@ DEFAULT_USER=claya
 # GEOMETRY_SYMBOL_SPACER=""
 # GEOMETRY_PROMPT_PREFIX_SPACER=""
 
-ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME="robbyrussell"
+
+#ZSH_THEME="powerlevel9k/powerlevel9k"
 POWERLEVEL9K_STATUS_OK="false"
 POWERLEVEL9K_DIR_HOME_BACKGROUND="32"
 POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND="32"
 POWERLEVEL9K_DIR_DEFAULT_BACKGROUND="32"
 POWERLEVEL9K_VCS_CLEAN_BACKGROUND="112"
 POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND="112"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs vcs)
+POWERLEVEL9K_VIRTUALENV_BACKGROUND="7"
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv context dir rbenv)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs vcs)
 #POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind git-remotebranch git-tagname)
 
 # Uncomment the following line to use case-sensitive completion.
@@ -76,7 +82,8 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs vcs)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git mvn zsh-autosuggestions)
+#plugins=(git zsh-autosuggestions)
+plugins=(zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -88,11 +95,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+#if [[ -n $SSH_CONNECTION ]]; then
+#  export EDITOR='vim'
+#else
+#  export EDITOR='nano'
+#fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -116,13 +123,19 @@ source $ZSH/oh-my-zsh.sh
 #source ~/zsh-git-prompt/zshrc.sh
 #PROMPT=%~'%b$(git_super_status) %# '
 
+# nvm configuration
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
 # zsh-autosuggestions config
 bindkey '^ ' autosuggest-execute
 
 # Additional plugins
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/local/etc/profile.d/z.sh
-
 
 
 # Better git diffs
@@ -139,15 +152,64 @@ git config --global color.diff.old "red bold"
 git config --global color.diff.new "green bold"
 git config --global color.diff.whitespace "red reverse"
 
+# P4Merge as mergetool
+git config --global merge.tool p4mergetool
+git config --global mergetool.p4mergetool.cmd "/Applications/p4merge.app/Contents/Resources/launchp4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED"
+git config --global mergetool.p4mergetool.trustExitCode false
+git config --global mergetool.keepBackup false
+
+# VS Code as editor
+#git config --global core.editor "code --wait"
+
 # Other git aliases
-alias gs="git status"
+alias gs="git status -s -b"
+alias gd="git diff"
+# git log
+alias gl="git log --oneline --decorate --graph --all"
+# git log (only head)
+alias glh="git log --oneline --decorate --graph"
+# git log with author
+alias gla="git log --graph --pretty=format:'%C(bold)%C(yellow)%h%Creset %s %C(bold)%Cblue%an' --all"
+# git log (only head) with author
+alias glha="git log --graph --pretty=format:'%C(bold)%C(yellow)%h%Creset %s %C(bold)%Cblue%an'"
+# git log with author and decoration
+alias glad="git log --graph --pretty=format:'%C(bold)%C(yellow)%h%Creset %s %C(bold)%Cblue%an %C(bold)%Cgreen%d' --all"
+# git log (only head) with author and decoration
+alias glhad="git log --graph --pretty=format:'%C(bold)%C(yellow)%h%Creset %s %C(bold)%Cblue%an %C(bold)%Cgreen%d'"
+alias gf="git fetch --all --tags --prune"
+alias gu="git pull"
+alias gp="git push"
+#alias gpsup="git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)"
+alias gpsup='git push --set-upstream origin $(git_current_branch)'
+alias ga="git add ."
+alias gc="git commit"
+alias gca="git commit -a"
+alias gcam="git commit --amend"
+alias gcaam="git commit -a --amend"
+alias gmt="git mergetool"
+alias gch="git checkout"
+alias gchb="git checkout -b"
+alias gch-="git checkout -"
+alias grc="git rebase --continue"
+alias gra="git rebase --abort"
+alias gma="git merge --abort"
+alias gwip="git commit -am 'WIP'"
+alias gdelmerged='git checkout -q master && git merge -q && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done; git branch --merged origin/master | egrep -v "(^\*|master|dev)" | xargs git branch -d'
+alias gdelmergedpreview='git checkout -q master && git merge -q && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == "-"* ]] && echo "$branch is merged into master and can be deleted"; done; git branch --merged origin/master | egrep -v "(^\*|master|dev)" | xargs -I{} echo "{} is merged into master and can be deleted"'
 
 # Tig aliases
 alias t="tig --all"
 alias ts="tig status"
 
 # Other aliases
+alias npm-exec='PATH=$(npm bin):$PATH'
 alias k="kubectl"
 alias usemitmproxy="export http_proxy='http://localhost:8080'"
+alias preview-fgcolors='for code in {000..255}; do print -P -- "$code: %B%F{$code}Test%f%b"; done'
+alias preview-fgcolorsbold='for code in {000..255}; do print -P -- "$code: %B%F{$code}Test%f%b"; done'
+alias preview-bgcolorsblack='for code in {000..255}; do print -P -- "$code: %K{$code}%F{0}Test%f%k"; done'
+alias preview-bgcolorswhite='for code in {000..255}; do print -P -- "$code: %K{$code}%F{0}Test%f%k"; done'
+alias wifi="networksetup -setairportpower en0 off; networksetup -setairportpower en0 on"
 
-
+# Paths
+export PATH=$PATH:$HOME/go/bin/
