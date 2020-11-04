@@ -110,6 +110,9 @@ export NVM_DIR="$HOME/.nvm"
 # zsh-autosuggestions config
 bindkey '^ ' autosuggest-execute
 
+# Automatically quit if one screen and don't clear screen
+git config --global core.pager "less -F -X"
+
 # Better git diffs
 # git config --global core.pager "~/diff-so-fancy | less --tabs=4 -RFX"
 # git config --global color.ui true
@@ -130,6 +133,7 @@ bindkey '^ ' autosuggest-execute
 # Other git aliases
 alias gs="git status -s -b"
 alias gd="git diff"
+alias gb="git branch"
 # git log
 alias gl="git log --oneline --decorate --graph --all"
 # git log (only head)
