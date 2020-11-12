@@ -146,7 +146,8 @@ alias glha="git log --graph --pretty=format:'%C(bold)%C(yellow)%h%Creset %s %C(b
 alias glad="git log --graph --pretty=format:'%C(bold)%C(yellow)%h%Creset %s %C(bold)%Cblue%an %C(bold)%Cgreen%d' --all"
 # git log (only head) with author and decoration
 alias glhad="git log --graph --pretty=format:'%C(bold)%C(yellow)%h%Creset %s %C(bold)%Cblue%an %C(bold)%Cgreen%d'"
-alias gf="git fetch --all --tags --prune"
+alias gf="git fetch"
+alias gfa="git fetch --all --tags --prune"
 alias gu="git pull"
 alias gp="git push"
 #alias gpsup="git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)"
@@ -164,6 +165,8 @@ alias grc="git rebase --continue"
 alias gra="git rebase --abort"
 alias gma="git merge --abort"
 alias gwip="git commit -am 'WIP'"
+# more involved aliases
+alias gba='for branch in `git branch -r | grep -v HEAD`;do echo -e `git show --format="%ai %ar by %an" $branch | head -n 1` \\t$branch; done | sort -r'
 alias gdelmerged='git checkout -q master && git merge -q && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done; git branch --merged origin/master | egrep -v "(^\*|master|dev)" | xargs git branch -d'
 alias gdelmergedpreview='git checkout -q master && git merge -q && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == "-"* ]] && echo "$branch is merged into master and can be deleted"; done; git branch --merged origin/master | egrep -v "(^\*|master|dev)" | xargs -I{} echo "{} is merged into master and can be deleted"'
 
