@@ -21,8 +21,9 @@ bindkey '^ ' autosuggest-accept
 
 setopt PROMPT_SUBST
 
+CONTEXT=''
 NL=$'\n'
-PS1='%B%F{cyan}%3~%f%b$NL%B%(?.%F{green}.%F{red})$%f%b '
+PS1='%B%F{yellow}$CONTEXT%f%F{cyan}%3~%f%b$NL%B%(?.%F{green}.%F{red})$%f%b '
 
 function precmd {
   # Adapted from oh-my-zsh
