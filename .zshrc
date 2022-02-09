@@ -10,7 +10,7 @@ bindkey -e
 source ~/s/z/z.sh
 source ~/s/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-bindkey '^ ' autosuggest-accept
+bindkey '^ ' autosuggest-execute
 bindkey '^H' autosuggest-accept
 
 # source ~/s/zsh-autocomplete/zsh-autocomplete.plugin.zsh
