@@ -11,7 +11,8 @@ cd s
 git clone https://github.com/supersonicclay/dot-files
 git clone https://github.com/rupa/z
 git clone https://github.com/zsh-users/zsh-autosuggestions
-cp dot-files/.zshrc ~
+cd ~
+ln -s s/dot-files/.zshrc .zshrc
 
 # company-specific stuff goes in ~/.corporate
 
