@@ -1,15 +1,18 @@
 # Completions
 skip_global_compinit=1
 
-source ~/s/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
-
 bindkey -e
 
-zstyle ':autocomplete:*' min-input 1
+source ~/s/z/z.sh
+source ~/s/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+bindkey '^ ' autosuggest-accept
+
+# source ~/s/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+# zstyle ':autocomplete:*' min-input 1
 # zstyle ':autocomplete:*' insert-unambiguous yes
 # zstyle ':autocomplete:*' widget-style menu-select
 
