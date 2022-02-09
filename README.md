@@ -4,11 +4,13 @@
 
 ```
 # install zsh
-cd
+
+cd ~
 mkdir s
 cd s
 git clone https://github.com/supersonicclay/dot-files
-git clone https://github.com/marlonrichert/zsh-autocomplete.git
+git clone https://github.com/rupa/z
+git clone https://github.com/zsh-users/zsh-autosuggestions
 cp dot-files/.zshrc ~
 
 # company-specific stuff goes in ~/.corporate
