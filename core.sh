@@ -1,4 +1,6 @@
 
+EDITOR=vi
+
 alias l="ls -lah"
 
 # Other aliases
@@ -10,5 +12,4 @@ alias preview-fgcolorsbold='for code in {000..255}; do print -P -- "$code: %B%F{
 alias preview-bgcolorsblack='for code in {000..255}; do print -P -- "$code: %K{$code}%F{0}Test%f%k"; done'
 alias preview-bgcolorswhite='for code in {000..255}; do print -P -- "$code: %K{$code}%F{0}Test%f%k"; done'
 alias wifi="networksetup -setairportpower en0 off; networksetup -setairportpower en0 on"
-
 

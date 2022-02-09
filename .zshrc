@@ -1,4 +1,5 @@
 # Completions
+
 skip_global_compinit=1
 
 HISTFILE=~/.zsh_history
@@ -16,6 +17,8 @@ bindkey '^ ' autosuggest-accept
 # zstyle ':autocomplete:*' insert-unambiguous yes
 # zstyle ':autocomplete:*' widget-style menu-select
 
+# Prompt
+
 setopt PROMPT_SUBST
 
 NL=$'\n'
@@ -32,6 +35,8 @@ function preexec {
   print -Pn "\e]2;${1}\a" # set iTerm window name
   print -Pn "\e]1;${1}\a" # set iTerm tab name
 }
+
+# Include other dot files
 
 source ~/s/dot-files/core.sh
 source ~/s/dot-files/git.sh
