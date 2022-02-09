@@ -1,6 +1,5 @@
 
 alias l="ls -lah"
-alias z="cd"
 
 # Other aliases
 alias npm-exec='PATH=$(npm bin):$PATH'
