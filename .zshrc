@@ -11,6 +11,7 @@ source ~/s/z/z.sh
 source ~/s/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 bindkey '^ ' autosuggest-accept
+bindkey '^H' autosuggest-accept
 
 # source ~/s/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 # zstyle ':autocomplete:*' min-input 1
