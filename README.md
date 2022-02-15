@@ -13,6 +13,7 @@ git clone https://github.com/rupa/z
 git clone https://github.com/zsh-users/zsh-autosuggestions
 cd ~
 ln -s s/dot-files/.zshrc .zshrc
+ln -s s/dot-files/.tmux.conf .tmux.conf
 
 # company-specific stuff goes in ~/.corporate
 
