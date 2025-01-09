@@ -39,13 +39,13 @@ alias gb="git branch"
 # git log
 alias gl="git log --oneline --decorate --graph"
 # git log (filtered branches)
-alias glb="git log --oneline --decorate --graph --branches='claya*' --branches='FFP*' --branches='ffp*' --branches='BRMS*' --branches='arcpatch*'"
+alias glb="git log --oneline --decorate --graph --branches='*claya*' --branches='arcpatch*'"
 # git log (all)
 alias glm="git log --oneline --decorate --graph --all"
 # git log with author
 alias gla="git log --graph --pretty=format:'%C(bold)%C(yellow)%h%Creset %C(bold)%Cblue%an%Creset %s %C(bold)%Cgreen%d'"
 # git log (filtered branches) with author
-alias glba="git log --graph --pretty=format:'%C(bold)%C(yellow)%h%Creset %C(bold)%Cblue%an%Creset %s %C(bold)%Cgreen%d' --branches='claya*' --branches='FFP*' --branches='ffp*' --branches='BRMS*' --branches='arcpatch*'"
+alias glba="git log --graph --pretty=format:'%C(bold)%C(yellow)%h%Creset %C(bold)%Cblue%an%Creset %s %C(bold)%Cgreen%d' --branches='*claya*' --branches='arcpatch*'"
 # git log (all) with author
 alias glma="git log --graph --pretty=format:'%C(bold)%C(yellow)%h%Creset %C(bold)%Cblue%an%Creset %s %C(bold)%Cgreen%d' --all"
 alias gf="git fetch"
